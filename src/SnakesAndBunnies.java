@@ -133,8 +133,15 @@ public class SnakesAndBunnies {
         String field = getBoardField(playerPos[playerNum]);
 
         if (field.equals("-")) {
-            playerHasJumped[playerNum] = false;
-            checkOccupied(playerNum);
+
+            if (checkOccupied(playerNum))
+            {
+                playerHasJumped[playerNum] = true;
+            }
+            else
+            {
+                playerHist[playerNum] = 0;
+            }
             return;
         }
 
@@ -146,14 +153,21 @@ public class SnakesAndBunnies {
         // bunny
         if (fieldCode > 47 && fieldCode < 58)
         {
-            if (handleBunnyJump(playerNum, field)) return;
+            if (handleBunnyJump(playerNum, field)) {
+                playerHasJumped[playerNum] = true;
+                return;
+            }
 
         }
 
         // snake
         if (fieldCode > 96 && fieldCode < 123)
         {
-            if (handleSnakeJump(playerNum, field)) return;
+            if (handleSnakeJump(playerNum, field))
+            {
+                playerHasJumped[playerNum] = true;
+                return;
+            }
         }
 
         // player
@@ -161,17 +175,18 @@ public class SnakesAndBunnies {
 
     }
 
-    public static void checkOccupied(int playerNum)
+    public static boolean checkOccupied(int playerNum)
     {
         for (int i=0; i<numPlayers;i++)
         {
-
             if ((i != playerNum) && (playerPos[playerNum] == playerPos[i]))
             {
                 playerHasJumped[playerNum] = true;
                 movePlayerTo(playerNum, playerPos[playerNum] + 1);
+                return true;
             }
         }
+        return false;
     }
 
     public static boolean handleSnakeJump(int playerNum, String field)
@@ -194,7 +209,6 @@ public class SnakesAndBunnies {
             }
         }
 
-        playerHasJumped[playerNum] = false;
         return false;
     }
 
@@ -219,7 +233,6 @@ public class SnakesAndBunnies {
             }
         }
 
-        playerHasJumped[playerNum] = false;
         return false;
     }
 
@@ -263,6 +276,5 @@ public class SnakesAndBunnies {
         System.exit(0);
 
     }
-
 
 }
