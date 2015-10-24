@@ -7,8 +7,6 @@ public class ZoomIn {
 
     public static void main (String[] args) {
 
-        int totalTickets = 0;
-
         Scanner in = new Scanner(System.in);
         int n = Integer.parseInt(in.nextLine());
         if (n < 1 || n > 100) return;
