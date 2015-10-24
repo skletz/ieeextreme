@@ -3,6 +3,6 @@
  */
 public class HelloIEEE {
     public static void main(String[] args) {
-        
+
     }
 }
